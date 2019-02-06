@@ -191,7 +191,7 @@ class ArmAndClaw(object):
         self.motor = Motor('A', motor_type='medium')
 
     def raise_arm(self):
-        self.motor.turn_on()
+        self.motor.turn_on(100)
         while True:
             if self.touch_sensor.is_pressed():
                 self.motor.turn_off()
