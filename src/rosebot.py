@@ -227,7 +227,7 @@ class ArmAndClaw(object):
         """
 
     def lower_arm(self):
-        self.motor.turn_on()
+        self.motor.turn_on(-100)
         while True:
             if self.motor.get_position() is 0:
                 self.motor.turn_off()
