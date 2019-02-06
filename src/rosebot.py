@@ -216,7 +216,7 @@ class ArmAndClaw(object):
         self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() is 14.2:
+            if abs(self.motor.get_position()) is 14.2:
                 self.motor.turn_off()
                 break
 
@@ -229,7 +229,7 @@ class ArmAndClaw(object):
     def lower_arm(self):
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() is 0:
+            if abs(self.motor.get_position()) is 14.2:
                 self.motor.turn_off()
                 break
 
