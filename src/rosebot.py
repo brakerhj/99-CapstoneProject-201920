@@ -227,6 +227,7 @@ class ArmAndClaw(object):
 
         if abs(int(desired_arm_position)) >= 4800:
             print('value not acceptable for parameters')
+            return
 
         if self.motor.get_position() > abs(int(desired_arm_position)):
             self.motor.turn_on(-100)
