@@ -225,7 +225,7 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
 
-        if abs(int(desired_arm_position)) > 5112:
+        if abs(int(desired_arm_position)) >= 4800:
             print('value not acceptable for parameters')
 
         if self.motor.get_position() > abs(int(desired_arm_position)):
