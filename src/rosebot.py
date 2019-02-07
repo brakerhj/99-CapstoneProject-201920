@@ -225,6 +225,24 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
 
+        if abs(int(desired_arm_position)) > 5112:
+            print('value not acceptable for parameters')
+
+        if self.motor.get_position() > abs(int(desired_arm_position)):
+            self.motor.turn_on(-100)
+            print('moving down')
+            while True:
+                if abs(self.motor.get_position() <= abs(int(desired_arm_position)):
+                    self.motor.turn_off()
+                    break
+        if self.motor.get_position() < abs(int(desired_arm_position)):
+            print('moving up')
+            self.motor.turn_on(100)
+            while True:
+                if abs(self.motor.get_position()) >= abs(int(desired_arm_position)):
+                    self.motor.turn_off()
+                    break
+
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
