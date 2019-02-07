@@ -74,6 +74,8 @@ class DriveSystem(object):
 
     def go(self, left_wheel_speed, right_wheel_speed):
         """ Makes the left and right wheel motors spin at the given speeds. """
+        self.left_motor.turn_on(left_wheel_speed)
+        self.right_motor.turn_on(right_wheel_speed)
 
     def stop(self):
         """ Stops the left and right wheel motors. """
@@ -228,11 +230,13 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
+        # print("running in lower arm")
         self.motor.turn_on(-100)
         while True:
             if abs(self.motor.get_position()) >= 14.2 * 360:
                 self.motor.turn_off()
                 break
+        # print("done")
 ###############################################################################
 #    SensorSystem
 ###############################################################################
