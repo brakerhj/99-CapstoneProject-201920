@@ -212,8 +212,8 @@ def handle_raise_arm(mqtt_sender):
     Tells the robot to raise its Arm until its touch sensor is pressed.
       :type  mqtt_sender:  com.MqttClient
     """
-    print('raise arm')
-    mqtt_sender.send_message()
+    # print('raise arm')
+    # mqtt_sender.send_message()
 
 def handle_lower_arm(mqtt_sender):
     """
