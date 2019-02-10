@@ -187,8 +187,9 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
+    left_entry_box = 0
     print('turn left', '0', right_entry_box.get())
-    mqtt_sender.send_message('turn_left', [right_entry_box.get()])
+    mqtt_sender.send_message('turn_left', [left_entry_box.get(), right_entry_box.get()])
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -198,8 +199,9 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
+    right_entry_box = 0
     print('turn right', left_entry_box.get(), '0')
-    mqtt_sender.send_message('turn_right', [left_entry_box.get()])
+    mqtt_sender.send_message('turn_right', [left_entry_box.get(), right_entry_box.get()])
 
 def handle_stop(mqtt_sender):
     """
