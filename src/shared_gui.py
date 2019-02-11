@@ -219,13 +219,14 @@ def handle_raise_arm(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print('raise arm')
-    mqtt_sender.send_message()
+    mqtt_sender.send_message('raise_arm')
 
 def handle_lower_arm(mqtt_sender):
     """
     Tells the robot to lower its Arm until it is all the way down.
       :type  mqtt_sender:  com.MqttClient
     """
+    
 
 
 def handle_calibrate_arm(mqtt_sender):
