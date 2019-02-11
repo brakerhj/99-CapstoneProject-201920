@@ -177,7 +177,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_inches_inches_label.grid(row=3, column=3)
     go_straight_inches_encoder.grid(row=2, column=1)
 
-    go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, mqtt_sender)
+    go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
     go_straight_inches_encoder["command"] = lambda: handle_go_straight_inches_encoder(mqtt_sender)
 
@@ -304,10 +304,10 @@ def handle_exit(mqtt_sender):
       :type mqtt_sender: com.MqttClient
     """
 
-def handle_go_straight_seconds(go_straight_seconds_seconds, mqtt_sender):
+def handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender):
     "sets up the handle."
     print('going straight for', int(go_straight_seconds_seconds.get()))
-    mqtt_sender.send_message('go_straight_for_seconds', [int(go_straight_seconds_seconds.get())])
+    mqtt_sender.send_message('go_straight_for_seconds', [int(go_straight_seconds_seconds.get()), int(go_straight_seconds_speed)])
 
 def handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender):
     "sets up the handle."
