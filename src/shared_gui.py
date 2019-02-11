@@ -351,7 +351,7 @@ def handle_go_straight_inches_encoder(mqtt_sender):
 
 
 def handle_beep_for_beeps(number, tone, mqtt_sender):
-    print('beeping', int(number), 'times')
+    print('beeping')
     mqtt_sender.send_message('beep_for_beeps', [number.get(), tone.get()])
 
 
