@@ -183,6 +183,7 @@ def get_drivesystem_frame(window, mqtt_sender):
 
     return frame
 
+
 def get_sound_system_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -319,6 +320,8 @@ def handle_quit(mqtt_sender):
     Tell the robot's program to stop its loop (and hence quit).
       :type  mqtt_sender:  com.MqttClient
     """
+    print('quit')
+    mqtt_sender.send_message("quit")
 
 
 def handle_exit(mqtt_sender):
