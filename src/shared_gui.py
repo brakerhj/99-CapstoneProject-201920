@@ -189,7 +189,7 @@ def get_sound_system_frame(window, mqtt_sender):
     frame.grid()
 
     frame_label = ttk.Label(frame, text="Sound System")
-    beep_function = ttk.Button(frame, text="Number of Beeps")
+    beep_function = ttk.Button(frame, text="Number of Beeps or Seconds")
     beep_beep_function = ttk.Entry(frame, width=8)
     tone_function = ttk.Button(frame, text="Frequency (range)")
     tone_tone_function = ttk.Entry(frame, width=8)
