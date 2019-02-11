@@ -94,12 +94,22 @@ class DriveSystem(object):
             if current - start >= seconds:
                 self.stop()
                 break
+
     def go_straight_for_inches_using_time(self, inches, speed):
         """
         Makes the robot go straight at the given speed
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        inches_per_sec = speed/10
+        seconds = inches/inches_per_sec
+        self.go(speed, speed)
+        start = time.time()
+        while True:
+            current = time.time()
+            if current - start >= seconds:
+                self.stop()
+                break
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
