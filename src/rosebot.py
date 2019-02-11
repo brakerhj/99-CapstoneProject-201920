@@ -87,7 +87,13 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
-
+        self.go(speed, speed)
+        start = time.time()
+        while True:
+            current = time.time()
+            if current - start >= seconds:
+                self.stop()
+                break
     def go_straight_for_inches_using_time(self, inches, speed):
         """
         Makes the robot go straight at the given speed
