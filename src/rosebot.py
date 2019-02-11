@@ -102,7 +102,7 @@ class DriveSystem(object):
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
         inches_per_sec = speed/10
-        seconds = (inches/inches_per_sec) + 1
+        seconds = inches/inches_per_sec
         self.go(speed, speed)
         start = time.time()
         while True:
