@@ -171,15 +171,39 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_seconds_seconds_label.grid(row=4, column=0)
     go_straight_seconds_speed_label.grid(row=2, column=0)
     go_straight_inches.grid(row=1, column=2)
-    go_straight_inches_speed.grid(row=2, column=2)
-    go_straight_inches_speed_label.grid(row=2, column=3)
-    go_straight_inches_inches.grid(row=3, column=2)
-    go_straight_inches_inches_label.grid(row=3, column=3)
-    go_straight_inches_encoder.grid(row=2, column=1)
+    go_straight_inches_speed.grid(row=3, column=2)
+    go_straight_inches_speed_label.grid(row=2, column=2)
+    go_straight_inches_inches.grid(row=5, column=2)
+    go_straight_inches_inches_label.grid(row=4, column=2)
+    go_straight_inches_encoder.grid(row=3, column=1)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
     go_straight_inches_encoder["command"] = lambda: handle_go_straight_inches_encoder(mqtt_sender)
+
+    return frame
+
+def get_sound_system_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Sound System")
+    beep_function = ttk.Button(frame, text="Number of Beeps")
+    beep_beep_function = ttk.Entry(frame, width=8)
+    tone_function = ttk.Button(frame, text="Frequency (range)")
+    tone_tone_function = ttk.Entry(frame, width=8)
+    phrase_function = ttk.Button(frame, text="What would you like to say?")
+    phrase_phrase_function = ttk.Entry(frame, width=20)
+
+    frame_label.grid(row=0, column=3)
+    beep_function.grid(row=1, column=0)
+    beep_beep_function.grid(row=2, column=0)
+    tone_function.grid(row=1, column=3)
+    tone_tone_function.grid(row=2, column=3)
+    phrase_function.grid(row=1, column=4)
+    phrase_phrase_function.grid(row=2, column=4)
+
+    # need to include mqtt_sender when functions are available
 
     return frame
 

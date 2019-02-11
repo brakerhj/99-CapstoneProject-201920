@@ -40,7 +40,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drivesystem_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, drivesystem_frame, sound_system_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -50,7 +50,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, sound_system_frame, drivesystem_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -63,13 +63,16 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm = shared_gui.get_arm_frame(main_frame, mqtt_sender)
     control = shared_gui.get_control_frame(main_frame, mqtt_sender)
     drivesystem = shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
-    return teleop, arm, control, drivesystem
+    sound_system = shared_gui.get_sound_system_frame(main_frame, mqtt_sender)
+    return teleop, arm, control, drivesystem, sound_system
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, sound_system_frame, drivesystem_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
+    drivesystem_frame.grid(row=0, column=1)
+    sound_system_frame.grid(row=1, column=1)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
