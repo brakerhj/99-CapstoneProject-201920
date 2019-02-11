@@ -302,9 +302,12 @@ def handle_exit(mqtt_sender):
 
 def handle_go_straight_seconds(go_straight_seconds_seconds, mqtt_sender):
     "sets up the handle."
+    print('going straight for', go_straight_seconds_seconds)
+    mqtt_sender.send_message('go_straight_for_seconds', [int(go_straight_seconds_seconds.get())])
 
 def handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender):
     "sets up the handle."
-
+    print('going straight for inches')
+    mqtt_sender.send_message('go_straight_for_inches', [go_straight_inches_speed.get(), go_straight_inches_inches.get()])
 def handle_go_straight_inches_encoder(mqtt_sender):
     "sets up the handle."
