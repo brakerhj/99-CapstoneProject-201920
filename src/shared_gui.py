@@ -146,6 +146,35 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+def get_drivesystem_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="DriveSystem")
+    go_straight_seconds = ttk.Button(frame, text="Go Straight for Seconds")
+    go_straight_inches = ttk.Button(frame, text="Go Straight for Inches(time)")
+    go_straight_inches_speed = ttk.Entry(frame, width=8)
+    go_straight_inches_speed_label = ttk.Label(frame, text='Speed')
+    go_straight_inches_inches = ttk.Entry(frame, width=8)
+    go_straight_inches_inches_label = ttk.Label(frame, text='Inches')
+    go_straight_inches_encoder = ttk.Button(frame, text="Go Straight for Inches(encoder)")
+
+
+    frame_label.grid(row=0, column=1)
+    go_straight_seconds.grid(row=1, column=0)
+    go_straight_inches.grid(row=1, column=2)
+    go_straight_inches_speed.grid(row=2, column=2)
+    go_straight_inches_speed_label.grid(row=2, column=3)
+    go_straight_inches_inches.grid(row=3, column=2)
+    go_straight_inches_inches_label.grid(row=3, column=3)
+    go_straight_inches_encoder.grid(row=2, column=1)
+
+    go_straight_seconds["command"] = lambda: handle_go_straight_seconds(mqtt_sender)
+    go_straight_inches["command"] = lambda: handle_go_straight_inches(mqtt_sender)
+    go_straight_inches_encoder["command"] = lambda: handle_go_straight_inches_encoder(mqtt_sender)
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -266,3 +295,12 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+
+def handle_go_straight_seconds(mqtt_sender):
+    "sets up the handle."
+
+def handle_go_straight_inches(mqtt_sender):
+    "sets up the handle."
+
+def handle_go_straight_inches_encoder(mqtt_sender):
+    "sets up the handle."
