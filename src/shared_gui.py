@@ -204,7 +204,7 @@ def get_sound_system_frame(window, mqtt_sender):
     phrase_function.grid(row=1, column=4)
     phrase_phrase_function.grid(row=2, column=4)
 
-    beep_function["command"] = lambda: handle_beep_for_beeps(beep_beep_function, tone_tone_function, mqtt_sender)
+    beep_function["command"] = lambda: handle_beep_for_beeps(beep_beep_function, mqtt_sender)
     tone_function["command"] = lambda: handle_tone_for_seconds()
 
     # need to include mqtt_sender when functions are available
@@ -352,7 +352,7 @@ def handle_go_straight_inches_encoder(mqtt_sender):
 
 def handle_beep_for_beeps(number, tone, mqtt_sender):
     print('beeping')
-    mqtt_sender.send_message('beep_for_beeps', [number.get(), tone.get()])
+    mqtt_sender.send_message('beep_for_beeps', [number.get()])
 
 
 # def handle_tone_for_seconds(number, tone, mqtt_sender):
