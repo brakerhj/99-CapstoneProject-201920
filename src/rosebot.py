@@ -223,6 +223,7 @@ class DriveSystem(object):
             if ir_sensor_inches <= inches + delta:
                 self.stop()
                 break
+                
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
