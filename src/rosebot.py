@@ -168,6 +168,16 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        ir_sensor = SensorSystem.ir_proximity_sensor
+
+        ir_sensor_inches = (70 * (ir_sensor * .01))/2.54
+
+        self.go(speed, speed)
+
+        while True:
+            if ir_sensor_inches <= inches:
+                self.stop()
+                break
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -175,6 +185,16 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        ir_sensor = SensorSystem.ir_proximity_sensor
+
+        ir_sensor_inches = (70 * (ir_sensor * .01)) / 2.54
+
+        self.go(-int(speed), -int(speed))
+
+        while True:
+            if ir_sensor_inches <= inches:
+                self.stop()
+                break
 
     def go_until_distance_is_within(self, delta, inches, speed):
         """
@@ -186,7 +206,23 @@ class DriveSystem(object):
         the robot should move until it is between 6.8 and 7.4 inches
         from the object.
         """
+        ir_sensor = SensorSystem.ir_proximity_sensor
 
+        ir_sensor_inches = (70 * (ir_sensor * .01)) / 2.54
+
+        self.go(speed, speed)
+
+        while True:
+            if ir_sensor_inches < inches - delta:
+                self.go(-int(speed), -int(speed))
+            if ir_sensor_inches > inches + delta:
+                self.go(speed, speed)
+            if ir_sensor_inches >= inches - delta:
+                self.stop()
+                break
+            if ir_sensor_inches <= inches + delta:
+                self.stop()
+                break
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
