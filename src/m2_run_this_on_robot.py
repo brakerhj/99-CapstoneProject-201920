@@ -30,6 +30,17 @@ def real_thing():
         if delegate_receives.is_time_to_quit:
             break
 
+def tone_as_gets_close(frequency):
+    ir_sensor = rosebot.SensorSystem.ir_proximity_sensor()
+    toner = rosebot.SoundSystem.tone_maker()
+    while True:
+        if ir_sensor < :
+            toner(int(frequency) + 10)
+        if ir_sensor > :
+            toner(int(frequency) - 10)
+
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
