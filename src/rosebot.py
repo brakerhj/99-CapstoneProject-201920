@@ -196,11 +196,11 @@ class DriveSystem(object):
 
         ir_sensor_inches = (70 * (ir_sensor * .01))/2.54
 
-
         self.go(speed, speed)
 
         while True:
             print(ir_sensor)
+            print(ir_sensor_inches)
             if ir_sensor_inches <= inches:
                 self.stop()
                 break

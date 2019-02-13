@@ -162,6 +162,16 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_inches_inches = ttk.Entry(frame, width=8)
     go_straight_inches_inches_label = ttk.Label(frame, text='Inches')
     go_straight_inches_encoder = ttk.Button(frame, text="Go Straight for Inches(encoder)")
+    go_straight_until_inches = ttk.Button(frame, text='Go Straight Until Distance Met')
+    go_straight_until_inches_inches = ttk.Entry(frame, width=8)
+    go_straight_until_inches_inches_label = ttk.Label(frame, text='Inches')
+    go_straight_until_inches_speed = ttk.Entry(frame, width=8)
+    go_straight_until_inches_speed_label = ttk.Label(frame, text='Speed')
+    go_straight_until_inches_delta = ttk.Entry(frame, width=8)
+    go_straight_until_inches_delta_label = ttk.Label(frame, text='Delta')
+    go_back_until_inches = ttk.Button(frame, text='Go Back Until Distance Met')
+    go_until_delta = ttk.Button(frame, text='Go Until Delta Met')
+
 
 
     frame_label.grid(row=0, column=1)
@@ -176,10 +186,22 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_inches_inches.grid(row=5, column=2)
     go_straight_inches_inches_label.grid(row=4, column=2)
     go_straight_inches_encoder.grid(row=3, column=1)
+    go_straight_until_inches.grid(row=6, column=0)
+    go_back_until_inches.grid(row=6, column=1)
+    go_until_delta.grid(row=6, column=2)
+    go_straight_until_inches_inches_label.grid(row=7, column=0)
+    go_straight_until_inches_speed_label.grid(row=7, column=1)
+    go_straight_until_inches_delta_label.grid(row=7, column=2)
+    go_straight_until_inches_inches.grid(row=8, column=0)
+    go_straight_until_inches_speed.grid(row=8, column=1)
+    go_straight_until_inches_delta.grid(row=8, column=2)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
     go_straight_inches_encoder["command"] = lambda: handle_go_straight_inches_encoder(mqtt_sender)
+    go_straight_until_inches["command"] = lambda: handle_go_straight_until_inches(go_straight_until_inches_inches, go_straight_until_inches_speed, mqtt_sender)
+    go_back_until_inches["command"] = lambda: handle_go_back_until_inches(go_straight_until_inches_inches, go_straight_until_inches_speed, mqtt_sender)
+    go_until_delta["command"] = lambda: handle_go_straight_until_inches_delta(go_straight_until_inches_inches, go_straight_until_inches_speed, go_straight_until_inches_delta, mqtt_sender)
 
     return frame
 
@@ -367,3 +389,18 @@ def handle_tone_for_seconds(seconds, tone, mqtt_sender):
 def handle_say_something(phrase, mqtt_sender):
     print('talking')
     mqtt_sender.send_message('say_something', [phrase.get()])
+
+
+def handle_go_straight_until_inches(inches, speed, mqtt_sender):
+    print('going until distance met')
+    mqtt_sender.send_message('go_straight_until_inches', [inches.get(), speed.get()])
+
+
+def handle_go_back_until_inches(inches, speed, mqtt_sender):
+    print('going back until distance met')
+    mqtt_sender.send_message('go_back_until_inches', [inches.get(), speed.get()])
+
+
+def handle_go_straight_until_inches_delta(inches, speed, delta, mqtt_sender):
+    print('going until delta meet')
+    mqtt_sender.send_message('go_straight_until_inches_delta', [inches.get(), speed.get(), delta.get()])
