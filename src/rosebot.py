@@ -210,7 +210,7 @@ class DriveSystem(object):
         self.go(-int(speed), -int(speed))
 
         while True:
-            ir_sensor = (48/2.54) * self.sensor_system.ir_proximity_sensor.get_distance()/100
+            ir_sensor = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             print(ir_sensor)
             if ir_sensor >= inches:
                 self.stop()
@@ -615,8 +615,8 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_inches = 2.54
+        return (48 / cm_per_inches) * self.get_distance() / 100
 
 
 ###############################################################################
