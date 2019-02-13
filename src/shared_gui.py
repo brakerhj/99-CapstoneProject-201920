@@ -181,6 +181,11 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is_color_label = ttk.Label(frame, text='Color')
     go_straight_until_color_is_color = ttk.Entry(frame, width=8)
     go_straight_until_color_is_not = ttk.Button(frame, text='Go Straight Until Color is Not')
+    tone_increase_by_distance = ttk.Button(frame, text='Frequency getting louder until')
+    tone_increase_by_distance_frequency_label = ttk.Label(frame, text='Frequency')
+    tone_increase_by_distance_frequency = ttk.Entry(frame, width=8)
+    tone_increase_by_distance_rate_label = ttk.Label(frame, text='Rate(10-50)')
+    tone_increase_by_distance_rate = ttk.Entry(frame, width=8)
 
 
 
@@ -215,6 +220,11 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is_color_label.grid(row=10, column=2)
     go_straight_until_color_is_color.grid(row=11, column=2)
     go_straight_until_color_is_not.grid(row=9, column=3)
+    tone_increase_by_distance.grid(row=12, column=0)
+    tone_increase_by_distance_frequency_label.grid(row=13, column=0)
+    tone_increase_by_distance_frequency.grid(row=14, column=0)
+    tone_increase_by_distance_rate_label.grid(row=13, column=1)
+    tone_increase_by_distance_rate.grid(row=14, column=1)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
@@ -225,7 +235,8 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_intensity_is_less_than['command'] = lambda: handle_go_straight_until_intensity_is_less_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
     go_straight_until_intensity_is_greater_than['command'] = lambda: handle_go_straight_until_intensity_is_greater_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
     go_straight_until_color_is['command'] = lambda: handle_go_straight_until_color_is(go_straight_until_color_is_color, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
-    go_straight_until_color_is_not['comman'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
+    go_straight_until_color_is_not['command'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
+    tone_increase_by_distance['command'] = lambda: handle_tone_increase_by_distance(tone_increase_by_distance_frequency, tone_increase_by_distance_rate, mqtt_sender)
 
     return frame
 
@@ -445,7 +456,11 @@ def handle_go_straight_until_color_is(color, speed, mqtt_sender):
     mqtt_sender.send_message('go_straight_until_color_is', [color.get(), speed.get()])
 
 
-def handle_handle_go_straight_until_color_is_not(color, speed, mqtt_sender):
+def handle_go_straight_until_color_is_not(color, speed, mqtt_sender):
     print('going until color is not')
     mqtt_sender.send_message('go_straight_until_color_is_not', [color.get(), speed.get()])
 
+
+def handle_tone_increase_by_distance(frequency, rate, mqtt_sender):
+    print('increasing frequency as getting closer')
+    mqtt_sender.send_message('tone_as_gets_close', [frequency.get(), rate.get()])
