@@ -226,6 +226,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_intensity_is_less_than['command'] = lambda: handle_go_straight_until_intensity_is_less_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
     go_straight_until_intensity_is_greater_than['command'] = lambda: handle_go_straight_until_intensity_is_greater_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
     go_straight_until_color_is['command'] = lambda: handle_go_straight_until_color_is(go_straight_until_color_is_color, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
+    go_straight_until_color_is_not['comman'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
 
     return frame
 
@@ -444,6 +445,8 @@ def handle_go_straight_until_color_is(color, speed, mqtt_sender):
     print('going until color is')
     mqtt_sender.send_message('go_straight_until_color_is', [color.get(), speed.get()])
 
+
 def handle_handle_go_straight_until_color_is_not(color, speed, mqtt_sender):
     print('going until color is not')
-    mqtt_sender.send_message('go_straight_until_color_is_not')
+    mqtt_sender.send_message('go_straight_until_color_is_not', [color.get(), speed.get()])
+
