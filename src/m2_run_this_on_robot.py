@@ -41,8 +41,8 @@ def tone_as_gets_close(frequency):
         toner
         if ir_sensor <= 6:
             robot.arm_and_claw.raise_arm()
+            robot.drive_system.stop()
             break
-        time.sleep(.1)
 
 
 
