@@ -31,6 +31,7 @@ def real_thing():
             break
 
 def tone_as_gets_close(frequency):
+
     ir_sensor = rosebot.SensorSystem.ir_proximity_sensor()
     toner = rosebot.SoundSystem.tone_maker()
     while True:
