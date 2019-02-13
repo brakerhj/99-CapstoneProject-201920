@@ -169,6 +169,7 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         """
         ir_sensor = self.sensor_system.ir_proximity_sensor
+        print(ir_sensor)
 
         ir_sensor_inches = (70 * (ir_sensor * .01))/2.54
 
