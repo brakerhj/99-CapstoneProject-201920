@@ -206,7 +206,7 @@ def get_sound_system_frame(window, mqtt_sender):
 
     beep_function["command"] = lambda: handle_beep_for_beeps(beep_beep_function, mqtt_sender)
     tone_function["command"] = lambda: handle_tone_for_seconds(beep_beep_function, tone_tone_function, mqtt_sender)
-    phrase_function["commmand"] = lambda: handle_say_something(phrase_phrase_function, mqtt_sender)
+    phrase_function["command"] = lambda: handle_say_something(phrase_phrase_function, mqtt_sender)
 
     # need to include mqtt_sender when functions are available
 
