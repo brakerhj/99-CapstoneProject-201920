@@ -33,11 +33,11 @@ def real_thing():
 
 def tone_as_gets_close(frequency):
     robot = rosebot.RoseBot()
-    ir_sensor = robot.sensor_system.ir_proximity_sensor.get_distance()
-    print(ir_sensor)
-    toner = robot.sound_system.tone_maker.play_tone(frequency/ir_sensor, .1).wait()
-    robot.drive_system.go(100, 100)
+    robot.drive_system.go(30, 30)
     while True:
+        ir_sensor = robot.sensor_system.ir_proximity_sensor.get_distance()
+        print(ir_sensor)
+        toner = robot.sound_system.tone_maker.play_tone(frequency / ir_sensor, .1).wait()
         toner
         if ir_sensor <= 2:
             robot.arm_and_claw.raise_arm()
