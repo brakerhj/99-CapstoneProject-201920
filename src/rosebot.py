@@ -198,7 +198,6 @@ class DriveSystem(object):
 
         while True:
             print(ir_sensor)
-            print(ir_sensor_inches)
             if ir_sensor <= inches:
                 self.stop()
                 break
