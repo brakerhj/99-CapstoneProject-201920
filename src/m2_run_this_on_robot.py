@@ -42,6 +42,7 @@ def tone_as_gets_close(frequency):
         if ir_sensor <= 0:
             robot.arm_and_claw.raise_arm()
             break
+        time.sleep(.1)
 
 
 
