@@ -171,6 +171,16 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_inches_delta_label = ttk.Label(frame, text='Delta')
     go_back_until_inches = ttk.Button(frame, text='Go Back Until Distance Met')
     go_until_delta = ttk.Button(frame, text='Go Until Delta Met')
+    go_straight_until_intensity_is_less_than = ttk.Button(frame, text='Go Straight Until Intensity Less')
+    go_straight_until_intensity_is_less_than_intensity_label = ttk.Label(frame, text='Intensity')
+    go_straight_until_intensity_is_less_than_intensity = ttk.Entry(frame, width=8)
+    go_straight_until_intensity_is_less_than_speed_label = ttk.Label(frame, text='Speed')
+    go_straight_until_intensity_is_less_than_speed = ttk.Entry(frame, width=8)
+    go_straight_until_intensity_is_greater_than = ttk.Button(frame, text='Go Straight Until Intesity Greater')
+    go_straight_until_color_is = ttk.Button(frame, text='Go Straight Until Color Is')
+    go_straight_until_color_is_color_label = ttk.Label(frame, text='Color')
+    go_straight_until_color_is_color = ttk.Entry(frame, width=8)
+    go_straight_until_color_is_not = ttk.Button(frame, text='Go Straight Until Color is Not')
 
 
 
@@ -195,6 +205,17 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_inches_inches.grid(row=8, column=0)
     go_straight_until_inches_speed.grid(row=8, column=1)
     go_straight_until_inches_delta.grid(row=8, column=2)
+    go_straight_until_intensity_is_less_than.grid(row=9, column=0)
+    go_straight_until_intensity_is_less_than_intensity_label.grid(row=10, column=0)
+    go_straight_until_intensity_is_less_than_intensity.grid(row=11, column=0)
+    go_straight_until_intensity_is_less_than_speed_label.grid(row=10, column=1)
+    go_straight_until_intensity_is_less_than_speed.grid(row=11, column=1)
+    go_straight_until_intensity_is_greater_than.grid(row=9, column=1)
+    go_straight_until_color_is.grid(row=9, column=2)
+    go_straight_until_color_is_color_label.grid(row=10, column=2)
+    go_straight_until_color_is_color.grid(row=11, column=2)
+    go_straight_until_color_is_not.grid(row=9, column=3)
+
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
@@ -202,6 +223,9 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_inches["command"] = lambda: handle_go_straight_until_inches(go_straight_until_inches_inches, go_straight_until_inches_speed, mqtt_sender)
     go_back_until_inches["command"] = lambda: handle_go_back_until_inches(go_straight_until_inches_inches, go_straight_until_inches_speed, mqtt_sender)
     go_until_delta["command"] = lambda: handle_go_straight_until_inches_delta(go_straight_until_inches_inches, go_straight_until_inches_speed, go_straight_until_inches_delta, mqtt_sender)
+    go_straight_until_intensity_is_less_than['command'] = lambda: handle_go_straight_until_intensity_is_less_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
+    go_straight_until_intensity_is_greater_than['command'] = lambda: handle_go_straight_until_intensity_is_greater_than(go_straight_until_intensity_is_less_than_intensity, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
+    go_straight_until_color_is['command'] = lambda: handle_go_straight_until_color_is(go_straight_until_color_is_color, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
 
     return frame
 
@@ -405,3 +429,21 @@ def handle_go_straight_until_inches_delta(inches, speed, delta, mqtt_sender):
     print('going until delta meet')
     mqtt_sender.send_message('go_straight_until_inches_delta', [inches.get(), speed.get(), delta.get()])
 
+
+def handle_go_straight_until_intensity_is_less_than(intensity, speed, mqtt_sender):
+    print('going until intensity is less than')
+    mqtt_sender.send_message('go_straight_until_intensity_is_less_than', [intensity.get(), speed.get()])
+
+
+def handle_go_straight_until_intensity_is_greater_than(intensity, speed, mqtt_sender):
+    print('going until intensity is greater than')
+    mqtt_sender.send_message('go_straight_until_intensity_is_greater_than', [intensity.get(), speed.get()])
+
+
+def handle_go_straight_until_color_is(color, speed, mqtt_sender):
+    print('going until color is')
+    mqtt_sender.send_message('go_straight_until_color_is', [color.get(), speed.get()])
+
+def handle_handle_go_straight_until_color_is_not(color, speed, mqtt_sender):
+    print('going until color is not')
+    mqtt_sender.send_message('go_straight_until_color_is_not')
