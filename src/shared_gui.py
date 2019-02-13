@@ -216,7 +216,6 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is_color.grid(row=11, column=2)
     go_straight_until_color_is_not.grid(row=9, column=3)
 
-
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
     go_straight_inches_encoder["command"] = lambda: handle_go_straight_inches_encoder(mqtt_sender)

@@ -616,7 +616,9 @@ class InfraredProximitySensor(object):
         is within its field of vision.
         """
         cm_per_inches = 2.54
-        return (48 / cm_per_inches) * self.get_distance() / 100
+        distance = (48 / cm_per_inches) * self.get_distance() / 100
+        print(distance)
+        return distance
 
 
 ###############################################################################
