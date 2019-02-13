@@ -210,7 +210,7 @@ class DriveSystem(object):
         self.go(-int(speed), -int(speed))
 
         while True:
-            ir_sensor = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()/2.54
+            ir_sensor = (48/2.54) * self.sensor_system.ir_proximity_sensor.get_distance()/100
             print(ir_sensor)
             if ir_sensor >= inches:
                 self.stop()
