@@ -130,12 +130,24 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.go(speed, speed)
+        print(intensity, "<", int(self.sensor_system.color_sensor.get_reflected_light_intensity()))
+        while True:
+            if intensity < int(self.sensor_system.color_sensor.get_reflected_light_intensity()):
+                self.stop()
+                break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.go(speed, speed)
+        print(intensity, ">", int(self.sensor_system.color_sensor.get_reflected_light_intensity()))
+        while True:
+            if intensity > int(self.sensor_system.color_sensor.get_reflected_light_intensity()):
+                self.stop()
+                break
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -150,6 +162,12 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        self.go(speed, speed)
+        print(color, '=', self.sensor_system.color_sensor.get_color_as_name())
+        while True:
+            if color == self.sensor_system.color_sensor.get_color_as_name():
+                self.stop()
+                break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -159,6 +177,12 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+        self.go(speed, speed)
+        print(color, "=/=", self.sensor_system.color_sensor.get_color_as_name())
+        while True:
+            if color != self.sensor_system.color_sensor.get_color_as_name():
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.

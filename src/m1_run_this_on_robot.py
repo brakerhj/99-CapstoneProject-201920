@@ -17,13 +17,18 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    real_thing()
+    # real_thing()
     # run_test_arm()
     # run_test_lower_arm()
     # run_test_calibrate_arm()
     # run_test_get_position()
     # run_go_seconds()
     # run_go_inches_speed()
+    # run_go_forward_until_distance_is_less_than()
+    # run_go_straight_until_intensity_less_than()
+    # run_go_straight_until_intensity_greater_than()
+    # run_go_straight_until_color_is()
+    run_go_straight_until_color_is_not()
 
 
 def real_thing():
@@ -70,6 +75,31 @@ def run_go_seconds():
 def run_go_inches_speed():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_time(8, 70)
+
+
+def run_go_forward_until_distance_is_less_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_forward_until_distance_is_less_than(5, 50)
+
+
+def run_go_straight_until_intensity_less_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_less_than(3, 20)
+
+
+def run_go_straight_until_intensity_greater_than():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_greater_than(7, 30)
+
+
+def run_go_straight_until_color_is():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_color_is('Black', 25)
+
+
+def run_go_straight_until_color_is_not():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_color_is_not('Blue', 33)
 
 
 

@@ -7,6 +7,8 @@
   Winter term, 2018-2019.
 """
 
+import time
+
 class DelegateThatReceives(object):
     def __init__(self, robot):
         """:type robot : rosebot.RoseBot"""
@@ -58,3 +60,11 @@ class DelegateThatReceives(object):
         for numbers in range(int(n)):
             self.robot.sound_system.beeper.beep().wait()
 
+    def tone_for_seconds(self, seconds, tone):
+        self.robot.sound_system.tone_maker.play_tone(int(tone), int(seconds)).wait()
+
+    def say_something(self, phrase):
+        self.robot.sound_system.speech_maker.speak(str(phrase))
+
+    def go_forward_until_distance_is_less_than(self, inches, speed):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
