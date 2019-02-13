@@ -40,8 +40,8 @@ def tone_as_gets_close(frequency):
         toner = robot.sound_system.tone_maker.play_tone(frequency / (ir_sensor/10), 1000).wait()
         toner
         if ir_sensor <= 6:
-            robot.arm_and_claw.raise_arm()
             robot.drive_system.stop()
+            robot.arm_and_claw.raise_arm()
             break
 
 
