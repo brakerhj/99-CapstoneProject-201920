@@ -314,7 +314,7 @@ class ArmAndClaw(object):
         self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if abs(self.motor.get_position()) >= 14.2 * 360:
+            if abs(self.motor.get_position()) >= 14.0 * 360:
                 self.motor.turn_off()
                 break
         self.motor.reset_position()
@@ -352,7 +352,7 @@ class ArmAndClaw(object):
         # print("running in lower arm")
         self.motor.turn_on(-100)
         while True:
-            if abs(self.motor.get_position()) >= 14.2 * 360:
+            if abs(self.motor.get_position()) >= 14.0 * 360:
                 self.motor.turn_off()
                 break
         # print("done")
