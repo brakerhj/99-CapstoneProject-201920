@@ -17,8 +17,8 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    real_thing()
-
+    # real_thing()
+    tone_as_gets_close(400)
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -30,15 +30,16 @@ def real_thing():
         if delegate_receives.is_time_to_quit:
             break
 
-def tone_as_gets_close(frequency):
 
-    ir_sensor = rosebot.SensorSystem.ir_proximity_sensor()
-    toner = rosebot.SoundSystem.tone_maker()
+def tone_as_gets_close(frequency):
+    robot = rosebot.RoseBot()
+    ir_sensor = robot.sensor_system.ir_proximity_sensor.get_distance()
+    print(ir_sensor)
+    toner = robot.sound_system.tone_maker.play_tone(frequency/ir_sensor, .1)
+    robot.drive_system.go(100, 100)
     while True:
-        if ir_sensor < :
-            toner(int(frequency) + 10)
-        if ir_sensor > :
-            toner(int(frequency) - 10)
+        toner
+
 
 
 
