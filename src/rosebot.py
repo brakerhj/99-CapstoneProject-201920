@@ -213,7 +213,7 @@ class DriveSystem(object):
             ir_sensor = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             ir_sensor_inches = (ir_sensor/2.54)
             print(ir_sensor)
-            if ir_sensor >= inches:
+            if ir_sensor_inches >= inches:
                 self.stop()
                 break
 
