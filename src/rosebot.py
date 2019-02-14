@@ -226,7 +226,7 @@ class DriveSystem(object):
         the robot should move until it is between 6.8 and 7.4 inches
         from the object.
         """
-        self.go(speed, speed)
+        self.go(int(speed), int(speed))
 
         while True:
             ir_sensor = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
