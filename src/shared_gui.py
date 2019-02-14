@@ -245,9 +245,9 @@ def get_drivesystem_frame(window, mqtt_sender):
     beep_while_moving_entry_rate.grid(row=14, column=3)
     spin_until_object_button.grid(row=15, column=0)
     spin_until_object_clockwise.grid(row=16, column=0)
-    spin_until_object_clockwise_speed.grid(row=17, column=0)
+    spin_until_object_clockwise_speed.grid(row=17, column=1)
     spin_until_object_counter.grid(row=16, column=1)
-    spin_until_object_counter_speed.grid(row=17, column=1)
+    spin_until_object_counter_speed.grid(row=17, column=0)
     spin_cc_until_object_button.grid(row=15, column=1)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
