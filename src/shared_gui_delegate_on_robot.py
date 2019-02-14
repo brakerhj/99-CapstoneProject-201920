@@ -110,4 +110,14 @@ class DelegateThatReceives(object):
                 break
 
     def spin_until_object(self, left_wheel_speed, right_wheel_speed):
-        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)  # spinning right
+        while True:
+            b = self.robot.sensor_system.camera.get_biggest_blob().center
+            print(b.x)
+            if 170 > b.x > 150:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
+            time.sleep(0.01)

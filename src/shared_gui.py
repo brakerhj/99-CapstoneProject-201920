@@ -191,6 +191,11 @@ def get_drivesystem_frame(window, mqtt_sender):
     beep_while_moving_entry_initial = ttk.Entry(frame, width=8)
     beep_while_moving_rate = ttk.Label(frame, text="Rate")
     beep_while_moving_entry_rate = ttk.Entry(frame, width=8)
+    spin_until_object_button = ttk.Button(frame, text="Spin Until Object")
+    spin_until_object_clockwise = ttk.Label(frame, text="Clockwise: Speed")
+    spin_until_object_clockwise_speed = ttk.Entry(frame, width=8)
+    spin_until_object_counter = ttk.Label(frame, text="Counterclockwise: Speed")
+    spin_until_object_counter_speed = ttk.Entry(frame, width=8)
 
 
 
@@ -236,6 +241,11 @@ def get_drivesystem_frame(window, mqtt_sender):
     beep_while_moving_entry_initial.grid(row=14, column=2)
     beep_while_moving_rate.grid(row=13, column=3)
     beep_while_moving_entry_rate.grid(row=14, column=3)
+    spin_until_object_button.grid(row=15, column=0)
+    spin_until_object_clockwise.grid(row=16, column=0)
+    spin_until_object_clockwise_speed.grid(row=17, column=0)
+    spin_until_object_counter.grid(row=16, column=1)
+    spin_until_object_counter_speed.grid(row=17, column=1)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)

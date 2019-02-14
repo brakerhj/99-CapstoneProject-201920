@@ -17,7 +17,7 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    # real_thing()
+    real_thing()
     # run_test_arm()
     # run_test_lower_arm()
     # run_test_calibrate_arm()
@@ -31,7 +31,7 @@ def main():
     # run_go_straight_until_color_is_not()
     # run_go_backward_until_distance_is_greater_than()
     # run_beep_while_moving(10, 5)
-    run_spin_until_object()
+    # run_spin_until_object()
 
 
 def real_thing():
