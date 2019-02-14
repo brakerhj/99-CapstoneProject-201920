@@ -248,6 +248,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is['command'] = lambda: handle_go_straight_until_color_is(go_straight_until_color_is_color, go_straight_until_intensity_is_less_than_speed, mqtt_sender)
     go_straight_until_color_is_not['command'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
     tone_increase_by_distance['command'] = lambda: handle_tone_increase_by_distance(tone_increase_by_distance_frequency, tone_increase_by_distance_rate, mqtt_sender)
+    beep_while_moving_button['command'] = lambda: handle_beep_while_moving_button(beep_while_moving_entry_initial, beep_while_moving_entry_rate, mqtt_sender)
 
     return frame
 
@@ -475,3 +476,7 @@ def handle_go_straight_until_color_is_not(color, speed, mqtt_sender):
 def handle_tone_increase_by_distance(frequency, rate, mqtt_sender):
     print('increasing frequency as getting closer')
     mqtt_sender.send_message('tone_as_gets_close', [frequency.get(), rate.get()])
+
+def handle_beep_while_moving_button(intial, rate, mqtt_sender):
+    print('beeping faster while getting closer')
+    mqtt_sender.send_message('beep_while_moving', [intial.get(), rate.get()])
