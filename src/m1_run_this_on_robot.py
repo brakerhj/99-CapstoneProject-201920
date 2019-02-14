@@ -30,7 +30,8 @@ def main():
     # run_go_straight_until_color_is()
     # run_go_straight_until_color_is_not()
     # run_go_backward_until_distance_is_greater_than()
-    run_beep_while_moving(10, 5)
+    # run_beep_while_moving(10, 5)
+    run_spin_until_object()
 
 
 def real_thing():
@@ -126,10 +127,11 @@ def run_beep_while_moving(initial, rate):
             break
 
 
-def spin_until_object():
+def run_spin_until_object():
     robot = rosebot.RoseBot()
     robot.drive_system.go(25, 0) # spinning right
-    # robot.sensor_system.camera
+    robot.sensor_system.camera
+
     # while True:
             # robot.drive_system.stop()
             # break

@@ -7,7 +7,8 @@
   Winter term, 2018-2019.
 """
 
-import time
+import m2_run_this_on_robot
+import m1_run_this_on_robot
 
 class DelegateThatReceives(object):
     def __init__(self, robot):
@@ -68,3 +69,22 @@ class DelegateThatReceives(object):
 
     def go_forward_until_distance_is_less_than(self, inches, speed):
         self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
+
+    def go_straight_until_intensity_is_less_than(self, color_value):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(color_value)
+
+    def go_straight_until_intensity_is_greater_than(self, color_value):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(color_value)
+
+    def go_straight_until_color_is(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is(color, speed)
+
+    def go_straight_until_color_is_not(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(color, speed)
+
+    def tone_as_gets_close(self, frequency, rate):
+        m2_run_this_on_robot.tone_as_gets_close(frequency, rate)
+
+    def beep_while_moving(self, initial, rate):
+        m1_run_this_on_robot.run_beep_while_moving(initial, rate)
+
