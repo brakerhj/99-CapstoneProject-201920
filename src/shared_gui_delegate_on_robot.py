@@ -70,6 +70,9 @@ class DelegateThatReceives(object):
     def go_forward_until_distance_is_less_than(self, inches, speed):
         self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
 
+    def go_straight_until_inches_delta(self, inches, speed, delta):
+        self.robot.drive_system.go_until_distance_is_within(delta, inches, speed)
+
     def go_straight_until_intensity_is_less_than(self, color_value, speed):
         self.robot.drive_system.go_straight_until_intensity_is_less_than(color_value, speed)
 
@@ -102,7 +105,7 @@ class DelegateThatReceives(object):
             self.robot.sound_system.beeper.beep().wait()
             print(ir_sensor)
             if ir_sensor < first_value:
-                time.sleep((initial / (rate / ir_sensor) / 100))
+                time.sleep((int(initial) / (int(rate) / int(ir_sensor)) / 100))
             if ir_sensor <= 4:
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
