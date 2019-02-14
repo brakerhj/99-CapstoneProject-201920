@@ -191,11 +191,13 @@ def get_drivesystem_frame(window, mqtt_sender):
     beep_while_moving_entry_initial = ttk.Entry(frame, width=8)
     beep_while_moving_rate = ttk.Label(frame, text="Rate")
     beep_while_moving_entry_rate = ttk.Entry(frame, width=8)
-    spin_until_object_button = ttk.Button(frame, text="Spin Until Object")
+    spin_until_object_button = ttk.Button(frame, text="Spin Clockwise Until Object")
     spin_until_object_clockwise = ttk.Label(frame, text="Clockwise: Speed")
     spin_until_object_clockwise_speed = ttk.Entry(frame, width=8)
     spin_until_object_counter = ttk.Label(frame, text="Counterclockwise: Speed")
     spin_until_object_counter_speed = ttk.Entry(frame, width=8)
+    spin_cc_until_object_button = ttk.Button(frame, text="Spin Counterclockwise Until Object")
+
 
 
 
@@ -246,6 +248,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     spin_until_object_clockwise_speed.grid(row=17, column=0)
     spin_until_object_counter.grid(row=16, column=1)
     spin_until_object_counter_speed.grid(row=17, column=1)
+    spin_cc_until_object_button.grid(row=15, column=1)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)
@@ -259,7 +262,8 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is_not['command'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
     tone_increase_by_distance['command'] = lambda: handle_tone_increase_by_distance(tone_increase_by_distance_frequency, tone_increase_by_distance_rate, mqtt_sender)
     beep_while_moving_button['command'] = lambda: handle_beep_while_moving_button(beep_while_moving_entry_initial, beep_while_moving_entry_rate, mqtt_sender)
-    spin_until_object_button['command'] = lambda: handle_spin_until_object_button(spin_until_object_clockwise_speed, spin_until_object_counter_speed, mqtt_sender)
+    spin_until_object_button['command'] = lambda: handle_spin_until_object_button(spin_until_object_clockwise_speed, mqtt_sender)
+    spin_cc_until_object_button['command'] = lambda: handle_spin_cc_until_object_button(spin_until_object_counter_speed, mqtt_sender)
 
     return frame
 
@@ -494,6 +498,13 @@ def handle_beep_while_moving_button(intial, rate, mqtt_sender):
     mqtt_sender.send_message('beep_while_moving', [intial.get(), rate.get()])
 
 
-def handle_spin_until_object_button(left_wheel_speed, right_wheel_speed, mqtt_sender):
-    print('spinning specified way until object detected')
-    mqtt_sender.send_message('spin_until_object', [left_wheel_speed.get(), right_wheel_speed.get()])
+def handle_spin_until_object_button(right_wheel_speed, mqtt_sender):
+    left_wheel_speed = 0
+    print('spinning clockwise until object detected')
+    mqtt_sender.send_message('spin_until_object', [left_wheel_speed, right_wheel_speed.get()])
+
+
+def handle_spin_cc_until_object_button(left_wheel_speed, mqtt_sender):
+    right_wheel_speed = 0
+    print('spinning counterclockwise until object detected')
+    mqtt_sender.send_message('spin until_object', [left_wheel_speed.get(), right_wheel_speed])
