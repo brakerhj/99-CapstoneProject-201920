@@ -37,7 +37,7 @@ def tone_as_gets_close(frequency, rate):
     while True:
         ir_sensor = robot.sensor_system.ir_proximity_sensor.get_distance()
         print(ir_sensor)
-        toner = robot.sound_system.tone_maker.play_tone(frequency / (ir_sensor/rate), 1000).wait()
+        toner = robot.sound_system.tone_maker.play_tone(frequency / (ir_sensor/rate), 500).wait()
         toner
         if ir_sensor <= 6:
             robot.drive_system.stop()
