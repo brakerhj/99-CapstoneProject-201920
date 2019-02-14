@@ -259,6 +259,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     go_straight_until_color_is_not['command'] = lambda: handle_go_straight_until_color_is_not(go_straight_until_color_is_color, go_straight_until_color_is_color, mqtt_sender)
     tone_increase_by_distance['command'] = lambda: handle_tone_increase_by_distance(tone_increase_by_distance_frequency, tone_increase_by_distance_rate, mqtt_sender)
     beep_while_moving_button['command'] = lambda: handle_beep_while_moving_button(beep_while_moving_entry_initial, beep_while_moving_entry_rate, mqtt_sender)
+    spin_until_object_button['command'] = lambda: handle_spin_until_object_button(spin_until_object_clockwise_speed, spin_until_object_counter_speed, mqtt_sender)
 
     return frame
 
@@ -487,6 +488,12 @@ def handle_tone_increase_by_distance(frequency, rate, mqtt_sender):
     print('increasing frequency as getting closer')
     mqtt_sender.send_message('tone_as_gets_close', [frequency.get(), rate.get()])
 
+
 def handle_beep_while_moving_button(intial, rate, mqtt_sender):
     print('beeping faster while getting closer')
     mqtt_sender.send_message('beep_while_moving', [intial.get(), rate.get()])
+
+
+def handle_spin_until_object_button(left_wheel_speed, right_wheel_speed, mqtt_sender):
+    print('spinning specified way until object detected')
+    mqtt_sender.send_message('spin_until_object', [left_wheel_speed.get(), right_wheel_speed.get()])
