@@ -227,6 +227,7 @@ class DriveSystem(object):
         from the object.
         """
         self.go(int(speed), int(speed))
+        time.sleep(.01)
 
         while True:
             ir_sensor = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
