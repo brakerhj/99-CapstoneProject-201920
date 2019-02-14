@@ -186,6 +186,12 @@ def get_drivesystem_frame(window, mqtt_sender):
     tone_increase_by_distance_frequency = ttk.Entry(frame, width=8)
     tone_increase_by_distance_rate_label = ttk.Label(frame, text='Rate(10-50)')
     tone_increase_by_distance_rate = ttk.Entry(frame, width=8)
+    beep_while_moving_button = ttk.Button(frame, text="Beep While Moving")
+    beep_while_moving_initial = ttk.Label(frame, text="Initial")
+    beep_while_moving_entry_initial = ttk.Entry(frame, width=8)
+    beep_while_moving_rate = ttk.Label(frame, text="Rate")
+    beep_while_moving_entry_rate = ttk.Entry(frame, width=8)
+
 
 
 
@@ -225,6 +231,11 @@ def get_drivesystem_frame(window, mqtt_sender):
     tone_increase_by_distance_frequency.grid(row=14, column=0)
     tone_increase_by_distance_rate_label.grid(row=13, column=1)
     tone_increase_by_distance_rate.grid(row=14, column=1)
+    beep_while_moving_button.grid(row=12, column=2)
+    beep_while_moving_initial.grid(row=13, column=2)
+    beep_while_moving_entry_initial.grid(row=14, column=2)
+    beep_while_moving_rate.grid(row=13, column=3)
+    beep_while_moving_entry_rate.grid(row=14, column=3)
 
     go_straight_seconds["command"] = lambda: handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender)
     go_straight_inches["command"] = lambda: handle_go_straight_inches(go_straight_inches_speed, go_straight_inches_inches, mqtt_sender)

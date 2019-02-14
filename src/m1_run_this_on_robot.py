@@ -130,12 +130,16 @@ def run_beep_while_moving(initial, rate):
 def run_spin_until_object():
     robot = rosebot.RoseBot()
     robot.drive_system.go(25, 0) # spinning right
-    robot.sensor_system.camera
-
-    # while True:
-            # robot.drive_system.stop()
-            # break
-
+    while True:
+        b = robot.sensor_system.camera.get_biggest_blob().center
+        print(b.x)
+        if 170 > b.x > 150:
+            robot.drive_system.stop()
+            robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+            robot.arm_and_claw.raise_arm()
+            robot.arm_and_claw.move_arm_to_position(0)
+            break
+        time.sleep(0.01)
 
 
 # -----------------------------------------------------------------------------

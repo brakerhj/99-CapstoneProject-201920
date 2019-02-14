@@ -7,8 +7,7 @@
   Winter term, 2018-2019.
 """
 
-import m2_run_this_on_robot
-import m1_run_this_on_robot
+import time
 
 class DelegateThatReceives(object):
     def __init__(self, robot):
@@ -17,7 +16,8 @@ class DelegateThatReceives(object):
         self.is_time_to_stop = False
 
     def forward(self, left_wheel_speed, right_wheel_speed):
-        self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        # self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        print(self.robot.sensor_system.camera.get_biggest_blob())
 
     def stop(self):
         self.robot.drive_system.stop()
@@ -70,11 +70,11 @@ class DelegateThatReceives(object):
     def go_forward_until_distance_is_less_than(self, inches, speed):
         self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
 
-    def go_straight_until_intensity_is_less_than(self, color_value):
-        self.robot.drive_system.go_straight_until_intensity_is_less_than(color_value)
+    def go_straight_until_intensity_is_less_than(self, color_value, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(color_value, speed)
 
-    def go_straight_until_intensity_is_greater_than(self, color_value):
-        self.robot.drive_system.go_straight_until_intensity_is_greater_than(color_value)
+    def go_straight_until_intensity_is_greater_than(self, color_value, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(color_value, speed)
 
     def go_straight_until_color_is(self, color, speed):
         self.robot.drive_system.go_straight_until_color_is(color, speed)
@@ -83,8 +83,31 @@ class DelegateThatReceives(object):
         self.robot.drive_system.go_straight_until_color_is_not(color, speed)
 
     def tone_as_gets_close(self, frequency, rate):
-        m2_run_this_on_robot.tone_as_gets_close(frequency, rate)
+        self.robot.drive_system.go(30, 30)
+        while True:
+            ir_sensor = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            print(ir_sensor)
+            toner = self.robot.sound_system.tone_maker.play_tone(int(frequency) / (int(ir_sensor) / int(rate)), 500).wait()
+            toner
+            if ir_sensor <= 6:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
 
     def beep_while_moving(self, initial, rate):
-        m1_run_this_on_robot.run_beep_while_moving(initial, rate)
+        self.robot.drive_system.go(25, 25)
+        first_value = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+        while True:
+            ir_sensor = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            self.robot.sound_system.beeper.beep().wait()
+            print(ir_sensor)
+            if ir_sensor < first_value:
+                time.sleep((initial / (rate / ir_sensor) / 100))
+            if ir_sensor <= 4:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
 
+    def spin_until_object(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)
