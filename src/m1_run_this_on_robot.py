@@ -21,7 +21,7 @@ def main():
     # run_test_arm()
     # run_test_lower_arm()
     # run_test_calibrate_arm()
-    run_test_get_position()
+    # run_test_get_position()
     # run_go_seconds()
     # run_go_inches_speed()
     # run_go_forward_until_distance_is_less_than()
@@ -30,7 +30,7 @@ def main():
     # run_go_straight_until_color_is()
     # run_go_straight_until_color_is_not()
     # run_go_backward_until_distance_is_greater_than()
-    # run_beep_while_moving()
+    run_beep_while_moving(10, 5)
 
 
 def real_thing():
@@ -109,7 +109,7 @@ def run_go_backward_until_distance_is_greater_than():
     robot.drive_system.go_backward_until_distance_is_greater_than(10, 30)
 
 
-def run_beep_while_moving():
+def run_beep_while_moving(initial, rate):
     robot = rosebot.RoseBot()
     robot.drive_system.go(25, 25)
     first_value = robot.sensor_system.ir_proximity_sensor.get_distance()
@@ -118,12 +118,21 @@ def run_beep_while_moving():
         robot.sound_system.beeper.beep().wait()
         print(ir_sensor)
         if ir_sensor < first_value:
-            time.sleep(1 + (ir_sensor / 100))
-        if ir_sensor < 15:
+            time.sleep((initial / (rate / ir_sensor) / 100)) #help ?
+        if ir_sensor <= 4:
             robot.drive_system.stop()
             robot.arm_and_claw.raise_arm()
             robot.arm_and_claw.move_arm_to_position(0)
             break
+
+
+def spin_until_object():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go(25, 0) # spinning right
+    # robot.sensor_system.camera
+    # while True:
+            # robot.drive_system.stop()
+            # break
 
 
 
