@@ -1,13 +1,7 @@
 import rosebot
 import time
-import m2_run_this_on_laptop
-import m1_run_this_on_robot
 import tkinter
 from tkinter import ttk
-
-def main():
-    m2_run_this_on_laptop.main()
-
 
 def get_teleoperation_frame(window, mqtt_sender):
 
@@ -493,5 +487,3 @@ def handle_spin_cc_until_object_button(left_wheel_speed, mqtt_sender):
     print('spinning counterclockwise until object detected')
     mqtt_sender.send_message('spin until_object', [left_wheel_speed.get(), right_wheel_speed])
 
-
-main()
