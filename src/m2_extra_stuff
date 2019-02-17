@@ -1,31 +1,16 @@
-"""
-  Capstone Project.  Code to run on a LAPTOP (NOT the robot).
-  Constructs and returns Frame objects for the basics:
-  -- teleoperation
-  -- arm movement
-  -- stopping the robot program
-
-  This code is SHARED by all team members.  It contains both:
-    -- High-level, general-purpose methods for a Snatch3r EV3 robot.
-    -- Lower-level code to interact with the EV3 robot library.
-
-  Author:  Your professors (for the framework and lower-level code)
-    and Tanner Brammeier Haley Braker.
-  Winter term, 2018-2019.
-"""
-
+import rosebot
+import time
+import m2_run_this_on_laptop
+import m1_run_this_on_robot
 import tkinter
 from tkinter import ttk
 
+def main():
+    m2_run_this_on_laptop.main()
+
 
 def get_teleoperation_frame(window, mqtt_sender):
-    """
-    Constructs and returns a frame on the given window, where the frame
-    has Entry and Button objects that control the EV3 robot's motion
-    by passing messages using the given MQTT Sender.
-      :type  window:       ttk.Frame | ttk.Toplevel
-      :type  mqtt_sender:  com.MqttClient
-    """
+
     # Construct the frame to return:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
@@ -507,3 +492,6 @@ def handle_spin_cc_until_object_button(left_wheel_speed, mqtt_sender):
     right_wheel_speed = 0
     print('spinning counterclockwise until object detected')
     mqtt_sender.send_message('spin until_object', [left_wheel_speed.get(), right_wheel_speed])
+
+
+main()

@@ -10,7 +10,7 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
-import shared_gui
+import m2_extra_stuff
 
 
 def main():
@@ -59,11 +59,11 @@ def main():
 
 
 def get_shared_frames(main_frame, mqtt_sender):
-    teleop = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
-    arm = shared_gui.get_arm_frame(main_frame, mqtt_sender)
-    control = shared_gui.get_control_frame(main_frame, mqtt_sender)
-    drivesystem = shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
-    sound_system = shared_gui.get_sound_system_frame(main_frame, mqtt_sender)
+    teleop = m2_extra_stuff.get_teleoperation_frame(main_frame, mqtt_sender)
+    arm = m2_extra_stuff.get_arm_frame(main_frame, mqtt_sender)
+    control = m2_extra_stuff.get_control_frame(main_frame, mqtt_sender)
+    drivesystem = m2_extra_stuff.get_drivesystem_frame(main_frame, mqtt_sender)
+    sound_system = m2_extra_stuff.get_sound_system_frame(main_frame, mqtt_sender)
     return teleop, arm, control, drivesystem, sound_system
 
 
