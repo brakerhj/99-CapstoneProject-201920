@@ -14,18 +14,32 @@ def snackbot_frame(window, mqtt_sender):
     t.configure('the.TLabel', font=('Calibri', 24))
 
     frame_label = ttk.Label(frame, text='Snack-bot', style='the.TLabel')
-    water_button = ttk.Button(frame, text='Get Water Bottle', style='my.TButton')
+    energy_drink_button = ttk.Button(frame, text='Get Energy Drink', style='my.TButton')
     coke_button = ttk.Button(frame, text='Get Coke', style='my.TButton')
-    poptart_button = ttk.Button(frame, text='Get Poptart', style='my.TButton')
+    mac_n_cheese_button = ttk.Button(frame, text="Get Mac n Cheese", style='my.TButton')
     progress_bar_label = ttk.Label(frame, text='Progress of Task', style='my.TLabel')
     progress_bar = ttk.Progressbar(frame)
+    spacing_label = ttk.Label(frame, text='')
+    spacing_label2 = ttk.Label(frame, text='')
+    quit_robot_button = ttk.Button(frame, text="Stop just the robot's program")
+    exit_button = ttk.Button(frame, text="Stop this and the robot's program")
 
     frame_label.grid(row=0, column=1)
-    water_button.grid(row=1, column=0)
+    energy_drink_button.grid(row=1, column=0)
     coke_button.grid(row=1, column=1)
-    poptart_button.grid(row=1, column=2)
-    progress_bar_label.grid(row=2, column=1)
-    progress_bar.grid(row=3, column=1)
+    mac_n_cheese_button.grid(row=1, column=2)
+    progress_bar_label.grid(row=5, column=1)
+    progress_bar.grid(row=6, column=1)
+    spacing_label2.grid(row=2, column=1)
+    spacing_label.grid(row=4, column=1)
+    quit_robot_button.grid(row=3, column=0)
+    exit_button.grid(row=3, column=2)
+
+    quit_robot_button["command"] = lambda: handle_quit(mqtt_sender)
+    exit_button["command"] = lambda: handle_exit(mqtt_sender)
+    energy_drink_button["command"] = lambda: handle_get_energy_drink(mqtt_sender)
+    coke_button["command"] = lambda: handle_get_coke(mqtt_sender)
+    mac_n_cheese_button["command"] = lambda: handle_get_mac_n_cheese(mqtt_sender)
 
     return frame
 #
@@ -408,25 +422,7 @@ def snackbot_frame(window, mqtt_sender):
 # ###############################################################################
 # # Handlers for Buttons in the Control frame.
 # ###############################################################################
-# def handle_quit(mqtt_sender):
-#     """
-#     Tell the robot's program to stop its loop (and hence quit).
-#       :type  mqtt_sender:  com.MqttClient
-#     """
-#     print('quit')
-#     mqtt_sender.send_message("quit")
-#
-#
-# def handle_exit(mqtt_sender):
-#     """
-#     Tell the robot's program to stop its loop (and hence quit).
-#     Then exit this program.
-#       :type mqtt_sender: com.MqttClient
-#     """
-#     print('exit')
-#     handle_quit(mqtt_sender)
-#     exit()
-#
+
 # def handle_go_straight_seconds(go_straight_seconds_seconds, go_straight_seconds_speed, mqtt_sender):
 #     "sets up the handle."
 #     print('going straight for', int(go_straight_seconds_seconds.get()))
@@ -514,3 +510,39 @@ def snackbot_frame(window, mqtt_sender):
 #     print('spinning counterclockwise until object detected')
 #     mqtt_sender.send_message('spin until_object', [left_wheel_speed.get(), right_wheel_speed])
 #
+
+
+def handle_quit(mqtt_sender):
+    """
+    Tell the robot's program to stop its loop (and hence quit).
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print('quit')
+    mqtt_sender.send_message("quit")
+
+
+def handle_exit(mqtt_sender):
+    """
+    Tell the robot's program to stop its loop (and hence quit).
+    Then exit this program.
+      :type mqtt_sender: com.MqttClient
+    """
+    print('exit')
+    handle_quit(mqtt_sender)
+    exit()
+
+
+def handle_get_energy_drink(mqtt_sender):
+    print('getting energy drink')
+    mqtt_sender.send_message('get_energy_drink')
+
+
+def handle_get_coke(mqtt_sender):
+    print('getting coke')
+    mqtt_sender.send_message('get_coke')
+
+
+def handle_get_mac_n_cheese(mqtt_sender):
+    print('getting mac n cheese')
+    mqtt_sender.send_message('get_mac_n_cheese')
+

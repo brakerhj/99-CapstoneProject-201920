@@ -124,3 +124,68 @@ class DelegateThatReceives(object):
                 self.robot.arm_and_claw.move_arm_to_position(0)
                 break
             time.sleep(0.01)
+
+
+    def get_energy_drink(self):
+        self.robot.drive_system.go(0, 30)  # spinning left
+        while True:
+            e = self.robot.sensor_system.camera.get_biggest_blob().center
+            print(e.x)
+            if 170 > e.x > 150:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.drive_system.go(30, 0)
+                start = time.time()
+                while True:
+                    current = time.time()
+                    if current - start >= 5:
+                        self.robot.drive_system.stop()
+                        break
+                self.robot.drive_system.go_straight_until_color_is('white', 40)
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
+            time.sleep(0.01)
+
+    def get_coke(self):
+        self.robot.drive_system.go(0, 30)  # spinning left
+        while True:
+            c = self.robot.sensor_system.camera.get_biggest_blob().center
+            print(c.x)
+            if 170 > c.x > 150:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.drive_system.go(30, 0)
+                start = time.time()
+                while True:
+                    current = time.time()
+                    if current - start >= 5:
+                        self.robot.drive_system.stop()
+                        break
+                self.robot.drive_system.go_straight_until_color_is('white', 40)
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
+            time.sleep(0.01)
+
+    def get_mac_n_cheese(self):
+        self.robot.drive_system.go(0, 30)  # spinning left
+        while True:
+            m = self.robot.sensor_system.camera.get_biggest_blob().center
+            print(m.x)
+            if 170 > m.x > 150:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.drive_system.go(30, 0)
+                start = time.time()
+                while True:
+                    current = time.time()
+                    if current - start >= 5:
+                        self.robot.drive_system.stop()
+                        break
+                self.robot.drive_system.go_straight_until_color_is('white', 40)
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
+            time.sleep(0.01)
+
