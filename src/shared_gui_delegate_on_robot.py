@@ -204,9 +204,29 @@ class DelegateThatReceives(object):
 
     def prey_seafloor(self, color, speed):
         # using color sensor to follow red on the "seafloor" (ground) using go_straight_until_color_is_not
+        # maybe line following?
         self.robot.sensor_system(speed, speed)
         print(color, "=/=", self.robot.sensor_system.color_sensor.get_color_as_name())
         while True:
-            if color is not 'red':
+            if color is not 'blue':
                 self.stop()
                 break
+
+    def prey_stalk(self, left_wheel_speed, right_wheel_speed):
+        # using camera sensor to follow red objects using spin_until_object
+        # also may use the one i found on the website
+        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)  # spinning right
+        while True:
+            b = self.robot.sensor_system.camera.get_biggest_blob().center
+            print(b.x)
+            if 170 > b.x > 150:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.arm_and_claw.move_arm_to_position(0)
+                break
+            time.sleep(0.01)
+
+    def password_method(self):
+        # i dont know exactly what i want it to do yet
+        print("password")
