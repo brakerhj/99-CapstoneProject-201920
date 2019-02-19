@@ -189,3 +189,15 @@ class DelegateThatReceives(object):
                 break
             time.sleep(0.01)
 
+    def prey_intimidate(self):
+        # plays 'jaws' tone, faster and faster as approaching object, using tone_as_gets_close
+        self.robot.drive_system.go(30, 30)
+        while True:
+            ir_sensor = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            print(ir_sensor)
+            toner = self.robot.sound_system.tone_maker.play_tone(int(frequency) / (int(ir_sensor) / int(rate)), 500).wait()
+            toner
+            if ir_sensor <= 6:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
