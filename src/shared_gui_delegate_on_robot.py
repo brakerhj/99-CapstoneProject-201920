@@ -201,3 +201,12 @@ class DelegateThatReceives(object):
                 self.robot.drive_system.stop()
                 self.robot.arm_and_claw.raise_arm()
                 break
+
+    def prey_seafloor(self, color, speed):
+        # using color sensor to follow red on the "seafloor" (ground) using go_straight_until_color_is_not
+        self.robot.sensor_system(speed, speed)
+        print(color, "=/=", self.robot.sensor_system.color_sensor.get_color_as_name())
+        while True:
+            if color is not 'red':
+                self.stop()
+                break
