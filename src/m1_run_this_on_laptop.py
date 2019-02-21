@@ -10,7 +10,7 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
-import m1_gui_shark
+import m1_extra_stuff
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
+    main_frame = ttk.Frame(root, padding=10, borderwidth=7, relief='groove')
     main_frame.grid()
 
     # -------------------------------------------------------------------------
@@ -61,7 +61,7 @@ def main():
 
 
 def get_shared_frames(main_frame, mqtt_sender):
-    shark = m1_gui_shark.shark_frame(main_frame, mqtt_sender)
+    shark = m1_extra_stuff.shark_frame(main_frame, mqtt_sender)
     return shark
 
 

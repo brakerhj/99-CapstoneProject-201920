@@ -9,6 +9,8 @@
 
 import time
 
+from math import log2, pow
+
 class DelegateThatReceives(object):
     def __init__(self, robot):
         """:type robot : rosebot.RoseBot"""
@@ -125,7 +127,6 @@ class DelegateThatReceives(object):
                 break
             time.sleep(0.01)
 
-
     def get_energy_drink(self):
         self.robot.drive_system.go(0, 30)  # spinning left
         while True:
@@ -189,44 +190,87 @@ class DelegateThatReceives(object):
                 break
             time.sleep(0.01)
 
-    def prey_intimidate(self):
+    def prey_intimidate(self, speed):
         # plays 'jaws' tone, faster and faster as approaching object, using tone_as_gets_close
-        self.robot.drive_system.go(30, 30)
+        self.robot.drive_system.go(speed, speed)
+        NOTE_E = 146.83
+        NOTE_F = 155.56
+        NO_NOTE = 0
+        NOTE_G = 164.81
+        NOTE_H = 174.61
+
+        notes = [NOTE_E, NOTE_F, NO_NOTE, NOTE_G, NOTE_H]
+        first_value = self.robot.sensor_system.ir_proximity_sensor.get_distance()
         while True:
+            duration = 500
             ir_sensor = self.robot.sensor_system.ir_proximity_sensor.get_distance()
             print(ir_sensor)
-            toner = self.robot.sound_system.tone_maker.play_tone(int(frequency) / (int(ir_sensor) / int(rate)), 500).wait()
-            toner
+            self.robot.sound_system.tone_maker.play_tone(notes[0], duration).wait()
+            self.robot.sound_system.tone_maker.play_tone(notes[1], duration).wait()
+            if ir_sensor < first_value:
+                duration = duration * (ir_sensor / 100)
+                self.robot.sound_system.tone_maker.play_tone(notes[0], duration).wait()
+                self.robot.sound_system.tone_maker.play_tone(notes[1], duration).wait()
             if ir_sensor <= 6:
                 self.robot.drive_system.stop()
-                self.robot.arm_and_claw.raise_arm()
                 break
 
-    def prey_seafloor(self, color, speed):
+    def prey_seafloor(self, speed):
         # using color sensor to follow red on the "seafloor" (ground) using go_straight_until_color_is_not
-        # maybe line following?
-        self.robot.sensor_system(speed, speed)
-        print(color, "=/=", self.robot.sensor_system.color_sensor.get_color_as_name())
-        while True:
-            if color is not 'blue':
-                self.stop()
-                break
+        seconds = 10
+        color = "Blue"
+        print(self.robot.sensor_system.color_sensor.get_color_as_name())
+        self.robot.drive_system.go_straight_for_seconds(3, speed)
 
-    def prey_stalk(self, left_wheel_speed, right_wheel_speed):
+        for k in range(seconds):
+            print(k)
+            print(color, "=", self.robot.sensor_system.color_sensor.get_color_as_name())
+            if k % 2:
+                print(k, "right wheel going")
+                self.robot.drive_system.go(speed, 0)
+                time.sleep(3)
+                if self.robot.sensor_system.color_sensor.get_color_as_name() == color:
+                    self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    print("stopping and lifting arm")
+                    self.robot.arm_and_claw.move_arm_to_position(0)
+            else:
+                print(k, "left wheel going")
+                self.robot.drive_system.go(0, speed)
+                time.sleep(3)
+                if self.robot.sensor_system.color_sensor.get_color_as_name() == color:
+                    self.robot.drive_system.stop()
+                    self.robot.arm_and_claw.raise_arm()
+                    print("stopping and lifting arm")
+                    self.robot.arm_and_claw.move_arm_to_position(0)
+
+    def prey_stalk(self, speed):
         # using camera sensor to follow red objects using spin_until_object
         # also may use the one i found on the website
-        self.robot.drive_system.go(left_wheel_speed, right_wheel_speed)  # spinning right
+        self.robot.drive_system.go(speed, speed)
         while True:
             b = self.robot.sensor_system.camera.get_biggest_blob().center
-            print(b.x)
-            if 170 > b.x > 150:
-                self.robot.drive_system.stop()
-                self.robot.drive_system.go_forward_until_distance_is_less_than(2, 25)
-                self.robot.arm_and_claw.raise_arm()
-                self.robot.arm_and_claw.move_arm_to_position(0)
+            # print(b.x)
+            # if 190 > b.x > 130:
+            #     self.robot.drive_system.go_forward_until_distance_is_less_than(4, 10*2)
+            if 0 < b.x < 150:
+                print("spinning left")
+                self.robot.drive_system.go(0, speed)
+            if 170 < b.x < 320:
+                print("spinning right")
+                self.robot.drive_system.go(speed, 0)
+            if 151 < b.x < 169:
+                print("going forward")
+                self.robot.drive_system.go(speed * 2, speed * 2)
+                self.robot.drive_system.go_forward_until_distance_is_less_than(4, speed * 2)
                 break
             time.sleep(0.01)
 
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.arm_and_claw.move_arm_to_position(0)
+
     def password_method(self):
         # i dont know exactly what i want it to do yet
+        # make the robot say "Fish are friends, not food!"
+        self.robot.sound_system.speech_maker.speak(str("Fish are friends, not food!"))
         print("password")

@@ -72,6 +72,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     snackbot = m2_extra_stuff.snackbot_frame(main_frame, mqtt_sender)
     return snackbot
 
+
 def grid_frames(snackbot_frame):
     # teleop_frame.grid(row=0, column=0)
     # arm_frame.grid(row=1, column=0)
